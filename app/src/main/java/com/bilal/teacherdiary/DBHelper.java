@@ -50,8 +50,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_ROLLNO, student.getRollNo());
         values.put(COLUMN_CLASS, student.getclass());
-
-        db.insert(TABLE_NAME, null, values);
         long result = db.insert(TABLE_NAME, null, values);
         db.close();
         return result;
