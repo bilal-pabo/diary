@@ -12,13 +12,15 @@
         android:textStyle="bold"
         android:padding="16dp" />
 
-    <ListView
-        android:id="@+id/listView"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/headingTextView"
         android:layout_marginTop="0dp"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
+
 
 </RelativeLayout>

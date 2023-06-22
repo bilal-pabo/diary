@@ -1,63 +1,64 @@
 package com.bilal.teacherdiary;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bilal.teacherdiary.Student;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bilal.teacherdiary.R;
+import com.bilal.teacherdiary.Student;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class StudentAdapter extends ArrayAdapter<Student> {
-
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
+    private List<Student> studentList;
     private Context context;
-    private ArrayList<Student> students;
 
-    public StudentAdapter(Context context, ArrayList<Student> students) {
-        super(context, 0, students);
+    public StudentAdapter(ArrayList<Student> studentList, Context context) {
+        this.studentList = studentList;
         this.context = context;
-        this.students = students;
+    }
+
+    // Create the view holder for each student item
+    public static class StudentViewHolder extends RecyclerView.ViewHolder {
+        public TextView textViewFriendName;
+        public TextView textViewDate;
+        public TextView textViewCity;
+
+        public StudentViewHolder(View itemView) {
+            super(itemView);
+            textViewFriendName = itemView.findViewById(R.id.textViewFriendName);
+            textViewDate = itemView.findViewById(R.id.textViewDate);
+            textViewCity = itemView.findViewById(R.id.textViewCity);
+        }
+    }
+
+    @NonNull
+    @Override
+    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for each student item
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.searchresult, parent, false);
+        return new StudentViewHolder(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        ViewHolder holder;
-
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.searchresult, parent, false);
-
-            holder = new ViewHolder();
-            holder.imageViewFriendPicture = view.findViewById(R.id.imageViewFriendPicture);
-            holder.textViewFriendName = view.findViewById(R.id.textViewFriendName);
-            holder.textViewDate = view.findViewById(R.id.textViewDate);
-            holder.textViewCity = view.findViewById(R.id.textViewCity);
-
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
-
-        Student student = students.get(position);
-
-        // Set the data to the views
-        holder.imageViewFriendPicture.setImageResource(R.drawable.muslim);
+    public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
+        // Bind the data to the view holder
+        Student student = studentList.get(position);
         holder.textViewFriendName.setText(student.getName());
         holder.textViewDate.setText(student.getRollNo());
         holder.textViewCity.setText(student.getclass());
-
-        return view;
     }
 
-    static class ViewHolder {
-        ImageView imageViewFriendPicture;
-        TextView textViewFriendName;
-        TextView textViewDate;
-        TextView textViewCity;
+    @Override
+    public int getItemCount() {
+        return studentList.size();
     }
 }

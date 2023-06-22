@@ -1,10 +1,15 @@
 package com.bilal.teacherdiary;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -23,12 +28,9 @@ public class AllStudents extends AppCompatActivity {
         ArrayList<Student> students = db.getAllStudents();
         int size = students.size();
         head.setText("Total Students: " + size);
-        listView = findViewById(R.id.listView);
-
-        // Create an instance of the custom adapter
-        StudentAdapter adapter = new StudentAdapter(this, students);
-
-        // Set the adapter to the ListView
-        listView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        StudentAdapter adapter = new StudentAdapter(students, this);
+        recyclerView.setAdapter(adapter);
     }
 }
