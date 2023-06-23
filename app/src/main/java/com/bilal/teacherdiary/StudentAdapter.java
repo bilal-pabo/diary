@@ -55,6 +55,19 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         holder.textViewFriendName.setText(student.getName());
         holder.textViewDate.setText(student.getRollNo());
         holder.textViewCity.setText(student.getclass());
+
+        // Set click listener for each student item
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open a new activity with the student details
+                Intent intent = new Intent(context, StudentInfo.class);
+                intent.putExtra("name", student.getName());
+                intent.putExtra("roll", student.getRollNo());
+                intent.putExtra("Class", student.getclass());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
