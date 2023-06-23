@@ -65,8 +65,6 @@ public class StudentInfo extends AppCompatActivity {
                         int row = db.updateRecord(roll, s1, s2, s3);
                         if (row != 0)
                         {
-                            Intent intent = new Intent(StudentInfo.this, AllStudents.class);
-                            startActivity(intent);
                             Toast toast = Toast.makeText(StudentInfo.this, "Updated Successfully", Toast.LENGTH_SHORT);
                             toast.show();
                         }
